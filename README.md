@@ -2,7 +2,9 @@
 
 Helps a truck driver choose the safest route. Enter an origin, destination, departure time and load weight, and the app compares three routes using the forecast at the moment the truck reaches each checkpoint.
 
-**Live app:** `LIVE_URL` · **Walkthrough:** `LOOM_URL`
+**Live app:** <https://weather-aware-truck-routing-zeta.vercel.app>
+
+<!-- Add the Loom walkthrough link here. -->
 
 ![Los Angeles to Phoenix at 45,000 lb, with Route C recommended](docs/screenshot.png)
 
@@ -88,13 +90,13 @@ All four external services are free and need no API key, so the project runs imm
 
 All 49 forecast hours are uploaded to the GPU once, as a texture array. Moving the slider writes one shader uniform, so there is no network request, texture upload or React render. The shader blends adjacent hours, so time moves continuously instead of stepping.
 
-Measured dragging across all 48 hours at 1920x1080 on a GTX 1660 SUPER, over 241 frames:
+Measured on the live site, dragging across all 48 hours at 1920x1080 on a GTX 1660 SUPER, over 241 frames:
 
 | Frame time | Result |
 | --- | --- |
-| Median | 2.7 ms |
-| 99th percentile | 3.5 ms |
-| Worst frame | 4.3 ms |
+| Median | 2.8 ms |
+| 99th percentile | 3.8 ms |
+| Worst frame | 6.1 ms |
 
 The 60 fps budget is 16.7 ms. The slider's own JavaScript takes about 0.2 ms per tick.
 
@@ -137,7 +139,7 @@ Every threshold edge in the brief has its own backend test. Upstream services ar
 
 ## Deployment
 
-[vercel.json](vercel.json) builds the frontend as static files and serves Django as a Python function through [api/index.py](api/index.py). Run `vercel` from the repository root. No configuration is required.
+[vercel.json](vercel.json) builds the frontend as static files and serves Django as a Python function through [api/index.py](api/index.py). Run `vercel` from the repository root. No environment variables are required.
 
 ## Known limitations
 
